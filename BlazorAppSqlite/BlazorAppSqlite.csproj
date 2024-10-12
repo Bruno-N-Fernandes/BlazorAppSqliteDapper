@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
 		<InvariantGlobalization>true</InvariantGlobalization>
 	</PropertyGroup>
 
@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- EF Core and Sqlite -->
+		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
 		<NativeFileReference Include="Data\e_sqlite3.o" />
 	</ItemGroup>

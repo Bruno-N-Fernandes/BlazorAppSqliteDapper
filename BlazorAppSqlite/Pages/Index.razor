@@ -1,54 +1,12 @@
-﻿@page "/"
-@using BlazorAppSqlite.Data
-@using Microsoft.EntityFrameworkCore
-@implements IDisposable
-@inject DataSynchronizer DataSynchronizer
+﻿<PageTitle>Index</PageTitle>
 
-<PageTitle>Index</PageTitle>
+<button @onclick="LoadData">Load</button>
+<button @onclick="SaveData">Add (and Save)</button>
+<button @onclick="Download">Download</button>
+
+<hr/>
 
 @foreach (var w in storedWaves)
 {
-    <p>@w.Name - @w.Country</p>
-}
-
-<button @onclick="SaveData">Save</button>
-<button @onclick="LoadData">Load</button>
-
-@code {
-
-    [Inject]
-    internal IDbContextFactory<ClientSideDbContext> DbContextFactory { get; set; }
-
-    private ClientSideDbContext? context;
-
-    private List<Wave> storedWaves = new();
-    protected override async Task OnInitializedAsync()
-    {
-        base.OnInitialized();
-        context = await DataSynchronizer.GetPreparedDbContextAsync();
-
-        await LoadData();
-    }
-
-    private async Task SaveData()
-    {
-        var wave = new Wave { Name = "Bells", Country = Guid.NewGuid().ToString() };
-        context!.Waves.Add(wave);
-
-        await context.SaveChangesAsync();
-    }
-
-    private async Task LoadData()
-    {
-        var waves = await context!.Waves.ToListAsync();
-
-        storedWaves = waves;
-
-        await InvokeAsync(() => StateHasChanged());
-    }
-
-    public void Dispose()
-    {
-        context?.Dispose();
-    }
+	<p>@w.Id - @w.Name - @w.Country</p>
 }
